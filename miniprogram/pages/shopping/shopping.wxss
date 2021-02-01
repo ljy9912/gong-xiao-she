@@ -1,0 +1,40 @@
+/* pages/shopping/shopping.wxss */
+.page-header {
+  display: flex;
+  justify-content: center;
+  border-bottom: 1rpx solid #ccc;
+}
+.page-title {
+  padding: 20rpx 40rpx;
+  color: #999;
+  font-size: 38rpx;
+  text-align: center;
+}
+.page-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+.item{display: flex; padding: 10px 0; background-color: #fff;border-bottom: 1px solid #eee;}
+.item:active{background-color: #f5f5f5;}
+.item .img{width:300rpx; text-align: center;}
+.item .con{flex: 1; padding: 0 10px 0 0;}
+.con .nm{font-size: 14pt; font-weight: bold;}
+.con .des{line-height: 22px; font-size: 10pt; padding: 5px 0;color: #999;}
+.con .sub{color: #ff6a00;font-size: 10pt;}
+.con .sub text{font-size: 15pt;}
+
+.tips {
+  font-size: 28rpx;
+  text-align: center;
+  padding: 50rpx;
+  color: #ccc;
+}
+.tips image {
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 20rpx;
+}
+.tips image,.tips text {
+  vertical-align: middle;
+}

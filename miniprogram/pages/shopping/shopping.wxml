@@ -1,0 +1,15 @@
+<!--pages/shopping/shopping.wxml-->
+<!--列表页-->
+
+<view class="item" data-pname="{{p.name}}" data-brand="1" bindtap="goDetail" wx:for="{{list}}" wx:key="name" wx:for-item="p">
+  <view class="img">
+    <image src="p.imgUrl" mode="aspectFit" />
+  </view>
+  <view class="con">
+    <view class="nm">{{p.name}}</view>
+    <view class="des">{{p.des}}</view>
+    <view class="sub">￥
+      <text>{{p.price}}</text>
+    </view>
+  </view>
+</view>
