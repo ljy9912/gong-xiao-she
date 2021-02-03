@@ -23,7 +23,7 @@
 .con .des{line-height: 22px; font-size: 10pt; padding: 5px 0;color: #999;}
 .con .sub{color: #ff6a00;font-size: 10pt;}
 .con .sub text{font-size: 15pt;}
-
+.item .img image{width: 250rpx;height: 180rpx; }
 .tips {
   font-size: 28rpx;
   text-align: center;

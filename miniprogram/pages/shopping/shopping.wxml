@@ -1,9 +1,9 @@
 <!--pages/shopping/shopping.wxml-->
 <!--列表页-->
 
-<view class="item" data-pname="{{p.name}}" data-brand="1" bindtap="goDetail" wx:for="{{list}}" wx:key="name" wx:for-item="p">
+<view class="item" data-pname="{{p.name}}" data-des="{{p.des}}" data-price="{{p.price}}" data-imgid="{{p.imgID}}" data-imgurl="{{p.imgUrl}}" bindtap="goDetail" wx:for="{{list}}" wx:key="name" wx:for-item="p">
   <view class="img">
-    <image src="p.imgUrl" mode="aspectFit" />
+    <image src="{{p.imgUrl}}" mode="aspectFit" />
   </view>
   <view class="con">
     <view class="nm">{{p.name}}</view>

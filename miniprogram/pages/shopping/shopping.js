@@ -11,7 +11,7 @@ Page({
     // list: [], // 数据列表
     // type: '', // 数据类型
     // loading: true, // 显示等待框
-   list: []
+   list: [],
   },
  
   /**
@@ -27,37 +27,47 @@ Page({
     // }
       var list = [];
       var dic = [];
-      var tmpImgDic = "";
+      var tempdic = "";
+      var j = 0;
       const db = wx.cloud.database()
       // 查询当前用户所有的 counters
       db.collection('goods').get({
         success: res => {
           dic = res.data;
-          for (var i in dic) {
-            wx.cloud.downloadFile({
-              "fileID": res.data[i].imgID,
-              success: res => {
-                tmpImgDic = res.tempFilePath;
-              },
-              fail: err=> {
-                console.log("img downloading failed")
-                wx.showToast({
-                  title: '图片加载失败',
+          var fileList = [];
+          for (var i in dic){
+            fileList.push(dic[i].imgID);
+          }
+          console.log(fileList);
+          wx.cloud.getTempFileURL({
+            fileList: fileList,
+            success: res => {
+              console.log(res);
+              tempdic = res.fileList;
+              console.log(list);
+            },
+            fail: err => {
+              console.log("图片加载失败");
+              wx.showToast({
+                title: '图片加载失败',
+              })
+            },
+            complete: res => {
+              for (var i in dic){
+                list.push({
+                  name:dic[i].name,
+                  des: dic[i].des,
+                  price: dic[i].price,
+                  imgUrl: tempdic[i].tempFileURL,
+                  imgID: dic[i].imgID
                 })
+                console.log(list);
               }
-            })
-            console.log(tmpImgDic);
-            list.push({
-                name: dic[i].name,
-                price: dic[i].price + ".00",
-                des: dic[i].des,
-                imgUrl: tmpImgDic
-            })
-        }
-          this.setData({
-            "list": dic,
+              this.setData({
+                "list": list
+              })
+            }
           })
-          console.log('[数据库] [查询记录] 成功: ', res.data[0].name)
         },
         fail: err => {
           wx.showToast({
@@ -69,11 +79,15 @@ Page({
       })
     },
     goDetail: function (e) {
-      var d = e.currentTarget.dataset.pname;
-      var b = e.currentTarget.dataset.brand;
-      if (d) {
+      var pname = e.currentTarget.dataset.pname;
+      var des = e.currentTarget.dataset.des;
+      var price = e.currentTarget.dataset.price;
+      var imgID = e.currentTarget.dataset.imgid;
+      var imgUrl = e.currentTarget.dataset.imgurl;
+      console.log(imgUrl);
+      if (pname) {
           wx.navigateTo({
-              url: '../cakeDetail/cakeDetail?pname=' + d + "&brand=" + b
+              url: '../list_item/list_item?pname=' + pname + "&des=" + des + "&price=" + price + "&imgID=" + imgID
           })
       }
   }
