@@ -59,7 +59,8 @@ Page({
                   des: dic[i].des,
                   price: dic[i].price,
                   imgUrl: tempdic[i].tempFileURL,
-                  imgID: dic[i].imgID
+                  imgID: dic[i].imgID,
+                  id: dic[i]._id
                 })
                 console.log(list);
               }
@@ -84,10 +85,11 @@ Page({
       var price = e.currentTarget.dataset.price;
       var imgID = e.currentTarget.dataset.imgid;
       var imgUrl = e.currentTarget.dataset.imgurl;
-      console.log(imgUrl);
+      var id = e.currentTarget.dataset.id;
+      console.log(id);
       if (pname) {
           wx.navigateTo({
-              url: '../list_item/list_item?pname=' + pname + "&des=" + des + "&price=" + price + "&imgID=" + imgID
+              url: '../list_item/list_item?pname=' + pname + "&des=" + des + "&price=" + price + "&imgID=" + imgID + "&id=" + id + "&imgurl=" + imgUrl
           })
       }
   }

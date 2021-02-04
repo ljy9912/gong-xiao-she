@@ -27,44 +27,60 @@ Page({
     initCake: function (d) {
         var _this = this;
         var tempdic = "";
+        var type = [];
         var _list = [];
         wx.setNavigationBarTitle({ title: d.pname });
-        console.log(d.des);
-        wx.cloud.getTempFileURL({
-            fileList: [d.imgID],
+        const db = wx.cloud.database()
+        // 查询当前用户所有的 counters
+        db.collection('goods').where({
+            _id: d.id
+        })
+        .get({
             success: res => {
-              console.log(res);
-              tempdic = res.fileList[0].tempFileURL;
-              console.log(list);
+                type = res.data[0].type;
+                console.log(res);
             },
             fail: err => {
-              console.log("图片加载失败");
-              wx.showToast({
-                title: '图片加载失败',
-              })
+                console.log("请求失败");
             },
             complete: res => {
-                _list.push(tempdic);
-                console.log(_list);
-                this.setData({
-                    imgMinList: _list
+                wx.cloud.getTempFileURL({
+                    fileList: [d.imgID],
+                    success: res => {
+                    console.log(res);
+                    tempdic = res.fileList[0].tempFileURL;
+                    console.log(list);
+                    },
+                    fail: err => {
+                    console.log("图片加载失败");
+                    wx.showToast({
+                        title: '图片加载失败',
+                    })
+                    },
+                    complete: res => {
+                        _list.push(tempdic);
+                        console.log(_list);
+                        this.setData({
+                            imgMinList: _list
+                        })
+                    }
                 })
+                this.setData({
+                    name: d.pname,
+                    num: 1,
+                    des: d.des,
+                    // resource: d.Resourse,
+                    // fresh: d.KeepFresh,
+                    current: {
+                        size: type[0].size,
+                        price: type[0].price,
+                        supplyno: type[0].num,
+                        des: type[0].des
+                    },
+                    type: type
+                });
             }
-          })
-        this.setData({
-            name: d.pname,
-            num: 1,
-            des: d.des,
-            // resource: d.Resourse,
-            // fresh: d.KeepFresh,
-            current: {
-                // size: d.CakeType[0].Size,
-                price: d.price,
-                // supplyno: d.CakeType[0].SupplyNo,
-                des: d.des
-            },
-            // CakeType: d.CakeType
-        });
+        })
     },
     onShow: function (e) {
         // this.setData({ cartNum: base.cart.getNum() });
@@ -76,19 +92,43 @@ Page({
         var s = e.currentTarget.dataset.size;
         var p = e.currentTarget.dataset.price;
         var sno = e.currentTarget.dataset.supplyno;
+        var imgid = e.currentTarget.dataset.imgid;
+        var tempdic = "";
+        var _list = [];
+        wx.cloud.getTempFileURL({
+            fileList: [imgid],
+            success: res => {
+                tempdic = res.fileList[0].tempFileURL;
+            },
+            fail: err => {
+                console.log("图片加载失败");
+                wx.showToast({
+                    title: '图片加载失败',
+                })
+            },
+            complete: res => {
+                _list.push(tempdic);
+                console.log(_list);
+                this.setData({
+                    imgMinList: _list
+                })
+            }
+        })
         if (s && p && this.data.current.size != s) {
             this.setData({ "current.size": s, "current.price": p, "current.supplyno": sno })
         }
     },
     addCart: function () {
         var _this = this;
+        console.log(this.data.name);
         if (base.cart.add({
-            supplyno: this.data.current.supplyno,
             name: this.data.name,
             size: this.data.current.size,
             price: this.data.current.price,
             num: this.data.num,
-            brand:this.data.brand
+            supplyno: this.data.current.supplyno,
+            id: this.data.id,
+            img: this.data.imgMinList[0]
         })) {
             // this.setData({ cartNum: base.cart.getNum() })
             base.modal({

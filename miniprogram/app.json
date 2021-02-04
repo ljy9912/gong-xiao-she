@@ -2,13 +2,15 @@
   "pages": [
     "pages/shopping/shopping",
     "pages/mine/mine",
-    "pages/list_item"
+    "pages/list_item/list_item",
+    "pages/cart/cart",
+    "pages/order/order"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#F6F6F6",
-    "navigationBarTitleText": "供销社平价超市",
+    "navigationBarTitleText": "供销社生活超市",
     "navigationBarTextStyle": "black"
   },
   "sitemapLocation": "sitemap.json",
@@ -24,8 +26,14 @@
         "selectedIconPath": "images/shopping_selected.png"
       },
       {
+        "pagePath": "pages/cart/cart",
+        "text": "购物车",
+        "iconPath": "images/cart.png",
+        "selectedIconPath": "images/cart_selected.png"
+      },
+      {
         "pagePath": "pages/mine/mine",
-        "text": "页面2",
+        "text": "我的",
         "iconPath": "images/mine.png",
         "selectedIconPath": "images/mine_selected.png"
       }

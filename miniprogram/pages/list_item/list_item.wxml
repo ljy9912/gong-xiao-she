@@ -11,14 +11,14 @@
     <view class="des">{{des}}</view>
     <view class="pp">
       <view class="price">￥
-        <text>{{(current.price*num)+".00"}}</text>
+        <text>{{(current.price*num)}}</text>
       </view>
     </view>
-    <!-- <view class="size">
-      <view class="sitem {{current.size==s.Size?'sitem-on':'sitem-out'}}" data-supplyno="{{s.SupplyNo}}" data-size="{{s.Size}}" data-price="{{s.CurrentPrice}}" catchtap="changeCurrent" wx:for="{{CakeType}}" wx:for-item="s" wx:key="Id">
-        <text>{{s.Size}}</text>
+    <view class="size">
+      <view class="sitem {{current.size==s.size?'sitem-on':'sitem-out'}}" data-size="{{s.size}}" data-price="{{s.price}}" data-supplyno="{{s.num}}" data-imgid="{{s.imgID}}" catchtap="changeCurrent" wx:for="{{type}}" wx:for-item="s" wx:key="des">
+        <text>{{s.size}}</text>
       </view>
-    </view> -->
+    </view>
     <!-- <view class="sm">主要原料：
       <text>{{resource}}</text>
     </view>
