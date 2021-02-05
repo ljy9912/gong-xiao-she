@@ -27,7 +27,7 @@
     </view> -->
   </view>
   <view class="tool">
-    <view class="tbtn add" catchtap="addCart">加入购物车(<text class="cart-num">{{cartNum}}</text>)</view>
+    <view class="tbtn add" catchtap="addCart">加入购物车(<text class="cart-num">{{num}}</text>)</view>
     <view class="tbtn buy" catchtap="_go">购买等额优惠券</view>
   </view>
 </view>

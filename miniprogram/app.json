@@ -1,7 +1,7 @@
 {
   "pages": [
     "pages/shopping/shopping",
-    "pages/mine/mine",
+    "pages/user/user",
     "pages/list_item/list_item",
     "pages/cart/cart",
     "pages/order/order"
@@ -32,7 +32,7 @@
         "selectedIconPath": "images/cart_selected.png"
       },
       {
-        "pagePath": "pages/mine/mine",
+        "pagePath": "pages/user/user",
         "text": "我的",
         "iconPath": "images/mine.png",
         "selectedIconPath": "images/mine_selected.png"

@@ -16,6 +16,90 @@ App({
 
     this.globalData = {}
   },
+  user: {
+    userid: 0,//用户ID
+    sessionid: "",//秘钥
+    jzb: 0,
+    exp: 0,
+    phone: "",
+    levels: 0,
+    headimg: "",
+    islogin: function (tp) {
+        var re = false;
+        if (this.userid > 0) {
+            re = true;
+        } else {
+            if (tp == true) {
+                wx.navigateTo({
+                    url: '../phone/phone'
+                })
+            }
+        }
+        return re;
+    },
+    key: "userkey",
+    setCache: function (obj) {
+        wx.setStorageSync(this.key, obj);
+    },
+    getCache: function () {
+        return wx.getStorageSync(this.key);
+    },        
+    clear: function () {
+        wx.removeStorageSync(this.key);
+    }
+  },
+  getUserInfo: function (cb) {
+    var that = this
+    if (this.globalData.userInfo) {
+        typeof cb == "function" && cb(this.globalData.userInfo)
+    } else {
+        //调用登录接口
+        wx.login({
+            success: function (v) {
+                console.log(v);
+                wx.getUserInfo({
+                    success: function (res) {
+                        console.log(res);
+                        that.globalData.userInfo = res.userInfo
+                        typeof cb == "function" && cb(that.globalData.userInfo)
+                    }
+                })
+            }
+        })
+    }
+    },
+  get: function (p, suc, tit) {
+    var _this = this;
+    //var loaded = false;//请求状态
+    _this.loading.show({ title: tit });
+    // setTimeout(function () {
+    //     if (!loaded) {
+    //         _this.loading.show();
+    //     }
+    // }, 500);
+    if (_this.user.islogin()) {
+        p.userid = _this.user.userid;
+        p.sessionid = _this.user.sessionid;
+    }
+    wx.request({
+        url: this.path.www + 'client.ashx?v=' + Math.random(),
+        data: p,
+        header: {
+            'Content-Type': 'application/json'
+        },
+        method: "GET",
+        success: function (res) {
+            suc(res);
+        },
+        fail: function (e) {
+            _this.toast({ title: "请求出错！" })
+        },
+        complete: function () {
+            //loaded = true;//完成
+            _this.loading.hide();
+        }
+    })
+  },
   cart: {
     key: "cart",
     ref: "",
